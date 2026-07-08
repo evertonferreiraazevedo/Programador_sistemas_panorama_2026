@@ -22,8 +22,11 @@ while True:
                 print(f"{nome} adicionado à lista de convidados.\n")
     elif opcao == 2:
         print("Lista de convidados:")
-        for convidado in convidados:
-            print(convidado)
+        if not convidados:
+            print("Nenhum convidado na lista.\n")
+        else:
+            for convidado in convidados:
+                print(convidado)
         print()
     elif opcao == 3:
         nome = input("Digite o nome do convidado a ser consultado: ")
