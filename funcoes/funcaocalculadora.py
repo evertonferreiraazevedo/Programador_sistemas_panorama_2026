@@ -6,48 +6,48 @@ def menu():
             3 - Multiplicação
             4 - Divisão
             5 - Sair""")
-        
         opcao = input("Digite a opção desejada: ")
 
         if opcao == "1":
-            soma()
+            n1, n2 = numeros()
+            soma(n1, n2)
         elif opcao == "2":
-            subtracao()
+            n1, n2 = numeros()
+            subtracao(n1, n2)
         elif opcao == "3":
-            multiplicacao()
+            n1, n2 = numeros()
+            multiplicacao(n1, n2)
         elif opcao == "4":
-            divisao()
+            n1, n2 = numeros()
+            divisao(n1, n2)
         elif opcao == "5":
             print("Saindo do programa...")
             break
         else:
             print("Opção inválida. Tente novamente.")
-    
-def soma():
-    input1 = float(input("Digite o primeiro número: "))
-    input2 = float(input("Digite o segundo número: "))
-    resultado = input1 + input2
+
+def soma(a, b):
+    resultado = a + b
     print(f"O resultado da soma é: {resultado}")
-    
-def subtracao():
-    input1 = float(input("Digite o primeiro número: "))
-    input2 = float(input("Digite o segundo número: "))
-    resultado = input1 - input2
+
+def subtracao(a, b):
+    resultado = a - b
     print(f"O resultado da subtração é: {resultado}")
 
-def multiplicacao():
-    input1 = float(input("Digite o primeiro número: "))
-    input2 = float(input("Digite o segundo número: "))
-    resultado = input1 * input2
+def multiplicacao(a, b):
+    resultado = a * b
     print(f"O resultado da multiplicação é: {resultado}")
 
-def divisao():
-    input1 = float(input("Digite o primeiro número: "))
-    input2 = float(input("Digite o segundo número: "))
-    if input2 != 0:
-        resultado = input1 / input2
+def divisao(a, b):
+    if b != 0:
+        resultado = a / b
         print(f"O resultado da divisão é: {resultado}")
     else:
-        print("Erro: Divisão por zero não é permitida.") 
+        print("Erro: Divisão por zero não é permitida.")
+
+def numeros():
+    n1 = float(input("Digite o primeiro número: "))
+    n2 = float(input("Digite o segundo número: "))
+    return n1, n2
 
 menu()
