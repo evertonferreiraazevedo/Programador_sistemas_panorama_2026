@@ -33,9 +33,9 @@
 
 
 ###########################################################################################################
-# Abrindo um arquivo para escrita
-arquivo = open('exemplo2.txt', 'a', encoding="utf-8")
-arquivo.write('Esta é uma nova linha de texto.\n')
-arquivo.write('Adicionando outra linha.')
-arquivo.close()
-#conteudo antigo é sobrescrito 
+# # Abrindo um arquivo para escrita
+# arquivo = open('exemplo2.txt', 'a', encoding="utf-8")
+# arquivo.write('Esta é uma nova linha de texto.\n')
+# arquivo.write('Adicionando outra linha.')
+# arquivo.close()
+# #conteudo antigo é sobrescrito 
