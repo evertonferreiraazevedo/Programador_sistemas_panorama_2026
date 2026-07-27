@@ -1,0 +1,13 @@
+Criem um banco de Dados EMPRESA com a tabela funcionários com os respectivos campos: ID, nome, CPF, valor_hora, Carga_horaria.
+
+CREATE DATABASE Empresa;
+USE Empresa;
+CREATE TABLE Funcionario (
+    ID INTEGER PRIMARY KEY, 
+    Nome TEXT NOT NULL,
+    cpf TEXT NOT NULL UNIQUE,        -- TEXT é melhor para CPFs (evita problemas com zeros à esquerda)
+    valor_hora REAL,        -- REAL substitui o FLOAT
+    carga_horaria REAL
+);
+
+);
