@@ -11,6 +11,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS Alunos (
 )''')
 conexao.commit()
 
+
 # 1. CREATE
 def inserir_aluno():
     print("\nCadastrar Aluno")
