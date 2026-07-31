@@ -13,54 +13,69 @@
 # # Início do loop principal
 # janela.mainloop()
 
-import tkinter as tk
+
 import sqlite3
-janela = tk.Tk()
-janela.title("Componentes Básicos")
+import tkinter as tk
 
-#######################label nome e caixa de texto nome #########################
-
-label_nome = tk.Label(janela, text="Digite seu nome:")
-label_nome.pack()
-entry_nome = tk.Entry(janela)
-entry_nome.pack()
-
-#######################label idade e caixa de texto idade #########################
-
-label_idade = tk.Label(janela, text="Digite sua idade:")
-label_idade.pack()
-entry_idade = tk.Entry(janela)
-entry_idade.pack()
-
-#######################label idade e caixa de texto idade #########################
-
-label_curso = tk.Label(janela, text="Digite seu curso:")
-label_curso.pack()
-entry_curso = tk.Entry(janela)
-entry_curso.pack()
-
-
-
-def exibir_nome():
-    nome = entry_nome.get()
-    idade = int(entry_idade.get())
-    curso = entry_curso.get()
-
-    conexao = sqlite3.connect('exemplo.db')
+def inicializar_banco_de_dados():
+    conexao = sqlite3.connect("escola.db")
     cursor = conexao.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS Alunos (
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        Nome TEXT,
-        Idade INTEGER,
-        Curso TEXT
-    )''')
+
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS Alunos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            idade INTEGER NOT NULL,
+            curso TEXT NOT NULL
+        )
+    """
+    )
+
     conexao.commit()
-    cursor.execute("INSERT INTO Alunos (Nome, Idade, Curso) VALUES (?, ?, ?)", (nome, idade, curso))
+    conexao.close()
+
+def salvar_dados_do_aluno():
+    nome_digitado = campo_nome.get()
+    idade_digitada = campo_idade.get()
+    curso_digitado = campo_curso.get()
+
+    conexao = sqlite3.connect("escola.db")
+    cursor = conexao.cursor()
+    cursor.execute("INSERT INTO Alunos (nome, idade, curso) VALUES (?, ?, ?)" , (nome_digitado, idade_digitada, curso_digitado))
+
     conexao.commit()
+    conexao.close()
+
+    campo_nome.delete(0, tk.END)
+    campo_idade.delete(0, tk.END)
+    campo_curso.delete(0, tk.END)
+    print("Aluno cadastrado com sucesso!")
 
 
-button = tk.Button(janela, text="Enviar", command=exibir_nome)
-button.pack()
+inicializar_banco_de_dados()
+janela = tk.Tk()
+janela.title("Sistema de Cadastro Escolar")
+janela.geometry("300x300")  
+
+texto_nome = tk.Label(janela, text="Nome Completo:")
+texto_nome.pack(pady=2)  
+campo_nome = tk.Entry(janela, width=30)
+campo_nome.pack(pady=5)
+
+texto_idade = tk.Label(janela, text="Idade:")
+texto_idade.pack(pady=2)
+campo_idade = tk.Entry(janela, width=30)
+campo_idade.pack(pady=5)
+
+texto_curso = tk.Label(janela, text="Curso:")
+texto_curso.pack(pady=2)
+campo_curso = tk.Entry(janela, width=30)
+campo_curso.pack(pady=5)
+
+botao_enviar = tk.Button(
+    janela, text="Cadastrar Aluno", command=salvar_dados_do_aluno
+)
+botao_enviar.pack(pady=15)
 
 janela.mainloop()
-
