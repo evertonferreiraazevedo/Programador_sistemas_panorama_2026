@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as messagebox
+import sqlite3
 
 # Login admin (agora começam com esses valores, mas mudam ao cadastrar)
 user_name = "admin"
@@ -12,12 +13,93 @@ entry_usuario_cadastro = None
 entry_senha_cadastro = None
 entry_senha_confirmar = None
 
+#Cores Padrao
+COR_FUNDO = "#FFFFFF"
+COR_TEXTO = "#000000"
+COR_BOTAO = "#4CAF50"
+COR_BOTAO_TEXTO = "#000000"
+COR_BOTAO_2 = "#ffa500"
 
+#__________________________BANCO DE DADOS __________________________#
+######################ALUNO############################
+
+def buscar_aluno_banco():
+    pass
+
+def salvar_aluno_banco():
+    pass
+
+def atualizar_aluno_banco():
+    pass
+
+def deletar_aluno_banco():
+    pass
+
+######################ALUNO############################
+
+######################ADMINISTRADOR############################
+
+def salvar_admin_banco():
+    pass
+
+def atualizar_admin_banco():
+    pass
+
+def deletar_admin_banco():
+    pass
+
+######################ADMINISTRADOR############################
+
+def conectar_banco():
+    conexao = sqlite3.connect("sistema.db")
+    cursor = conexao.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS ADMIN (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario TEXT NOT NULL,
+            senha TEXT NOT NULL
+            )
+
+        CREATE TABLE IF NOT EXISTS ALUNO (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            email TEXT NOT NULL
+            )
+
+        CREATE TABLE IF NOT EXISTS PROFESSOR (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            email TEXT NOT NULL
+            )
+        
+        CREATE TABLE IF NOT EXISTS DISCIPLINA (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            descricao TEXT NOT NULL
+            )
+        
+        CREATE TABLE IF NOT EXISTS TURMA (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            curso_id INTEGER NOT NULL,
+            aluno_id INTEGER NOT NULL,
+            professor_id INTEGER NOT NULL,
+            foreign key (aluno_id) references ALUNO(id),
+            foreign key (professor_id) references PROFESSOR(id),
+            FOREIGN KEY (curso_id) REFERENCES DISCIPLINA(id)
+            )
+        
+        """)
+    conexao.commit()
+    conexao.close()
+
+#__________________________BANCO DE DADOS __________________________#
+
+#__________________________INTERFACE GRAFICA__________________________#
 def limpar_janela():
     # Procura todos os widgets/frames dentro da janela e os destrói
     for widget in janela.winfo_children():
         widget.destroy()
-
 
 def fazer_login():
     usuario = entry_usuario.get()
@@ -99,11 +181,10 @@ def tela_cadastro():
     frame_botoes = tk.Frame(frame_cadastro)
     frame_botoes.pack(pady=10)
 
-    botao_cadastrar = tk.Button(
-        frame_botoes, text="Cadastrar", command=fazer_cadastro)
+    botao_cadastrar = tk.Button(frame_botoes, text="Cadastrar", command=fazer_cadastro, bg=COR_BOTAO, fg=COR_BOTAO_TEXTO)
     botao_cadastrar.pack(side="left", pady=5, padx=10)
 
-    botao_voltar = tk.Button(frame_botoes, text="Voltar", command=tela_login)
+    botao_voltar = tk.Button(frame_botoes, text="Voltar", command=tela_login, bg=COR_BOTAO_2, fg=COR_BOTAO_TEXTO)
     botao_voltar.pack(side="right", pady=5, padx=10)
 
 def tela_login():
@@ -142,12 +223,16 @@ def tela_login():
     frame_botoes = tk.Frame(frame_login)
     frame_botoes.pack(pady=10)
 
-    botao_login = tk.Button(frame_botoes, text="Login", command=fazer_login)
+    botao_login = tk.Button(frame_botoes, text="Login", command=fazer_login, bg=COR_BOTAO, fg=COR_BOTAO_TEXTO)
     botao_login.pack(side="left", pady=5, padx=10)
 
     botao_cadastrar = tk.Button(
-        frame_botoes, text="Cadastrar", command=tela_cadastro)
+        frame_botoes, text="Cadastrar", command=tela_cadastro, bg=COR_BOTAO_2, fg=COR_BOTAO_TEXTO)
     botao_cadastrar.pack(side="right", pady=5, padx=10)
+
+
+#__________________________INTERFACE GRAFICA__________________________#
+
 
 # Criar janela principal
 janela = tk.Tk()
