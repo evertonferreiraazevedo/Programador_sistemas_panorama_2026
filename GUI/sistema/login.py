@@ -55,18 +55,18 @@ def conectar_banco():
         )
     """)
 
-    # cursor.execute("""
-    #     CREATE TABLE IF NOT EXISTS TURMA (
-    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
-    #         nome TEXT NOT NULL,
-    #         curso_id INTEGER NOT NULL,
-    #         aluno_id INTEGER NOT NULL,
-    #         professor_id INTEGER NOT NULL,
-    #         FOREIGN KEY (aluno_id) REFERENCES ALUNO(id),
-    #         FOREIGN KEY (professor_id) REFERENCES PROFESSOR(id),
-    #         FOREIGN KEY (curso_id) REFERENCES DISCIPLINA(id)
-    #     )
-    # """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS TURMA (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            curso_id INTEGER NOT NULL,
+            aluno_id INTEGER NOT NULL,
+            professor_id INTEGER NOT NULL,
+            FOREIGN KEY (aluno_id) REFERENCES ALUNO(id),
+            FOREIGN KEY (professor_id) REFERENCES PROFESSOR(id),
+            FOREIGN KEY (curso_id) REFERENCES DISCIPLINA(id)
+        )
+    """)
 
     conexao.commit()
     conexao.close()
